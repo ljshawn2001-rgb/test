@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://swcb8q32cvqi"]
+
+[ext_resource type="Script" uid="uid://c1bfau31nfqio" path="res://survivors_game.gd" id="1_l26od"]
+[ext_resource type="PackedScene" uid="uid://dn6ao41dajc0o" path="res://player.tscn" id="1_y3pti"]
+[ext_resource type="PackedScene" uid="uid://c0gpy0pye4jr6" path="res://tree.tscn" id="2_l26od"]
+
+[sub_resource type="Curve2D" id="Curve2D_l26od"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -235, -269, 0, 0, 0, 0, 1989, -268, 0, 0, 0, 0, 1983, 1088, 0, 0, 0, 0, -243, 1082, 0, 0, 0, 0, -235, -269)
+}
+point_count = 5
+
+[node name="Game" type="Node2D" unique_id=352134330]
+y_sort_enabled = true
+script = ExtResource("1_l26od")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1017058056]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1767930738]
+offset_right = 1948.0
+offset_bottom = 1104.0
+
+[node name="Kratos" parent="." unique_id=275540840 instance=ExtResource("1_y3pti")]
+position = Vector2(875, 463)
+
+[node name="Path2D" type="Path2D" parent="Kratos" unique_id=891776818]
+position = Vector2(-875, -463)
+curve = SubResource("Curve2D_l26od")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Kratos/Path2D" unique_id=59109664]
+unique_name_in_owner = true
+position = Vector2(-235, -269)
+rotation = 0.00044964027
+
+[node name="tree" parent="." unique_id=1964637591 instance=ExtResource("2_l26od")]
+position = Vector2(262, 275)
+
+[node name="tree2" parent="." unique_id=2034047491 instance=ExtResource("2_l26od")]
+position = Vector2(462, 672)
+
+[node name="tree6" parent="." unique_id=1359840973 instance=ExtResource("2_l26od")]
+position = Vector2(1663, 257)
+
+[node name="tree7" parent="." unique_id=1401766513 instance=ExtResource("2_l26od")]
+position = Vector2(1151, 644)
+
+[node name="tree3" parent="." unique_id=774832806 instance=ExtResource("2_l26od")]
+position = Vector2(1629, 743)
+
+[node name="tree4" parent="." unique_id=24546186 instance=ExtResource("2_l26od")]
+position = Vector2(1148, 296)
+
+[node name="tree5" parent="." unique_id=1447766207 instance=ExtResource("2_l26od")]
+position = Vector2(827, 921)
+
+[node name="Timer" type="Timer" parent="." unique_id=1570765564]
+wait_time = 0.4
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="." unique_id=455175678]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver" unique_id=489927026]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.9019608)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect" unique_id=110689534]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 158
+text = "Game Over"
+horizontal_alignment = 1
+uppercase = true
+
+[connection signal="health_depleated" from="Kratos" to="." method="_on_kratos_health_depleated"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
